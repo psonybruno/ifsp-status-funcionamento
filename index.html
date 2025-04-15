@@ -62,8 +62,8 @@
     }
 
     .status.almoco {
-  background-color: #f59e0b; /* laranja suave */
-  color: #fff7ed;
+  	  background-color: #f59e0b; /* laranja suave */
+  	  color: #fff7ed;
     }
 
     @keyframes pulse {
@@ -75,20 +75,32 @@
     .clock {
       font-size: 6rem;
       margin-top: 1rem;
+	  display: flex;
+	  flex-direction: row;
+	  justify-content: center;
+	  align-items: baseline;
     }
+
+	.seconds {
+		font-size: 2rem;
+	}
 
     .today-schedule {
       font-size: 2rem;
       margin-top: 1.5rem;
       opacity: 0.8;
-      color: #f0ba07;
+      color: #ffd13b;
     }
   </style>
 </head>
 <body>
 
   <div id="status" class="status">Carregando...</div>
-  <div id="clock" class="clock"></div>
+  <div id="clock" class="clock">
+	<div id="hours" class="hours"></div>	
+	<div id="minutes" class="minutes"></div>	
+	<div id="seconds" class="seconds"></div>
+  </div>
   <div id="today-schedule" class="today-schedule"></div>
 
  
@@ -142,8 +154,15 @@
 
     function updateClock() {
       const now = new Date();
-      const clockEl = document.getElementById('clock');
-      clockEl.textContent = now.toLocaleTimeString('pt-BR');
+      //const clockEl = document.getElementById('clock');
+	  const hoursEl = document.getElementById('hours');
+	  const minutesEl = document.getElementById('minutes');
+	  const secondsEl = document.getElementById('seconds');
+      //clockEl.textContent = now.toLocaleTimeString('pt-BR');
+      const clock = now.toLocaleTimeString('pt-BR').split(":");
+	  hoursEl.textContent = clock[0]
+	  minutesEl.textContent = `:${clock[1]}`
+	  secondsEl.textContent = `:${clock[2]}`
     }
 
     setInterval(() => {
