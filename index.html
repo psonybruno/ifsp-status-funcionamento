@@ -33,7 +33,7 @@
     }
 
     .status {
-      font-size: 10vw;
+      font-size: 18vw;
       font-weight: bold;
       padding: 1rem 5rem;
       border-radius: 10px;
@@ -65,14 +65,15 @@
     }
 
     .clock {
-      font-size: 2rem;
+      font-size: 6rem;
       margin-top: 1rem;
     }
 
     .today-schedule {
-      font-size: 0.9rem;
+      font-size: 2rem;
       margin-top: 1.5rem;
       opacity: 0.8;
+      color: #f0ba07;
     }
   </style>
 </head>
@@ -109,7 +110,7 @@
         }
       } else if ([2, 4].includes(day)) {
         // Terça e Quinta
-        scheduleText = 'Hoje: 08:00–17:20 (Aberto)';
+        scheduleText = 'Hoje: 08:00–17:20 (Atendimento Presencial)';
         if (time >= 8 && time < 17.33) {
           status = 'ABERTO';
           statusClass = 'aberto';
