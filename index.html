@@ -61,6 +61,11 @@
       color: #e0e7ff;
     }
 
+    .status.almoco {
+  background-color: #f59e0b; /* laranja suave */
+  color: #fff7ed;
+    }
+
     @keyframes pulse {
       0% { transform: scale(1); }
       50% { transform: scale(1.05); }
@@ -86,46 +91,54 @@
   <div id="clock" class="clock"></div>
   <div id="today-schedule" class="today-schedule"></div>
 
-  <script>
-    function updateStatus() {
-      const now = new Date();
-      const day = now.getDay(); // 0 = domingo, 1 = segunda, ..., 6 = sábado
-      const hour = now.getHours();
-      const minutes = now.getMinutes();
-      const time = hour + minutes / 60;
+ 
+<script>
 
-      const statusEl = document.getElementById('status');
-      const todaySchedule = document.getElementById('today-schedule');
+  function updateStatus() {
+  const now = new Date();
+  const day = now.getDay(); // 0 = domingo, 1 = segunda, ..., 6 = sábado
+  const hour = now.getHours();
+  const minutes = now.getMinutes();
+  const time = hour + minutes / 60;
 
-      let status = 'FECHADO';
-      let statusClass = 'fechado';
-      let scheduleText = '';
+  const statusEl = document.getElementById('status');
+  const todaySchedule = document.getElementById('today-schedule');
 
-      if ([1, 3, 5].includes(day)) {
-        // Segunda, Quarta, Sexta
-        scheduleText = 'Hoje: 08:00–13:50 (Aberto), 13:50–17:20 (Teletrabalho)';
-        if (time >= 8 && time < 13.83) {
-          status = 'ABERTO';
-          statusClass = 'aberto';
-        } else if (time >= 13.83 && time < 17.33) {
-          status = 'TELETRABALHO';
-          statusClass = 'teletrabalho';
-        }
-      } else if ([2, 4].includes(day)) {
-        // Terça e Quinta
-        scheduleText = 'Hoje: 08:00–17:20 (Atendimento Presencial)';
-        if (time >= 8 && time < 17.33) {
-          status = 'ABERTO';
-          statusClass = 'aberto';
-        }
-      } else {
-        scheduleText = 'Hoje: FECHADO';
-      }
+  let status = 'FECHADO';
+  let statusClass = 'fechado';
+  let scheduleText = '';
 
-      statusEl.textContent = status;
-      statusEl.className = `status ${statusClass}`;
-      todaySchedule.textContent = scheduleText;
+  if ([1, 3, 5].includes(day)) {
+    // Segunda, Quarta, Sexta
+    scheduleText = 'Hoje: 08:00–12:30 (Aberto), 12:30–13:00 (Almoço), 13:00–13:50 (Aberto), 13:50–17:20 (Teletrabalho)';
+    if (time >= 12.5 && time < 13) {
+      status = 'ALMOÇO';
+      statusClass = 'almoco';
+    } else if (time >= 8 && time < 13.83) {
+      status = 'ABERTO';
+      statusClass = 'aberto';
+    } else if (time >= 13.83 && time < 17.33) {
+      status = 'TELETRABALHO';
+      statusClass = 'teletrabalho';
     }
+  } else if ([2, 4].includes(day)) {
+    // Terça e Quinta
+    scheduleText = 'Hoje: 08:00–12:30 (Aberto), 12:30–13:00 (Almoço), 13:00–17:20 (Aberto)';
+    if (time >= 12.5 && time < 13) {
+      status = 'ALMOÇO';
+      statusClass = 'almoco';
+    } else if (time >= 8 && time < 17.33) {
+      status = 'ABERTO';
+      statusClass = 'aberto';
+    }
+  } else {
+    scheduleText = 'Hoje: FECHADO';
+  }
+
+  statusEl.textContent = status;
+  statusEl.className = `status ${statusClass}`;
+  todaySchedule.textContent = scheduleText;
+}
 
     function updateClock() {
       const now = new Date();
