@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Colunas de Status</title>
+  <style>
+    :root {
+      --bg-color: #121212;
+      --text-color: #f9f9f9;
+      --inactive-color: #555;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      height: 100vh;
+      display: flex;
+      flex-direction: row;
+    }
+
+    .column {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10vw;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .a.active {
+      background-color: #15803d; /* verde */
+    }
+
+    .b.active {
+      background-color: #1e40af; /* azul */
+    }
+
+    .c.active {
+      background-color: #f59e0b; /* laranja */
+    }
+
+    .inactive {
+      background-color: var(--inactive-color);
+    }
+  </style>
+</head>
+<body>
+  <div id="col-a" class="column a">A</div>
+  <div id="col-b" class="column b">B</div>
+  <div id="col-c" class="column c">C</div>
+
+  <script>
+    function updateColumns() {
+      const now = new Date();
+      const hour = now.getHours();
+      const minutes = now.getMinutes();
+      const time = hour + minutes / 60;
+
+      const colA = document.getElementById('col-a');
+      const colB = document.getElementById('col-b');
+      const colC = document.getElementById('col-c');
+
+      // Coluna A: 08:00 - 13:00
+      if (time >= 8 && time < 13) {
+        colA.classList.add('active');
+        colA.classList.remove('inactive');
+      } else {
+        colA.classList.remove('active');
+        colA.classList.add('inactive');
+      }
+
+      // Coluna B: 11:00 - 17:00
+      if (time >= 11 && time < 17) {
+        colB.classList.add('active');
+        colB.classList.remove('inactive');
+      } else {
+        colB.classList.remove('active');
+        colB.classList.add('inactive');
+      }
+
+      // Coluna C: 12:00 - 22:30
+      if (time >= 12 && time < 22.5) {
+        colC.classList.add('active');
+        colC.classList.remove('inactive');
+      } else {
+        colC.classList.remove('active');
+        colC.classList.add('inactive');
+      }
+    }
+
+    setInterval(updateColumns, 1000);
+    updateColumns();
+  </script>
+</body>
+</html>
